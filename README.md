@@ -27,7 +27,7 @@ Pushed the image to Docker hub after building it by using the command docker-com
 Made a pipeline on Jenkins for Continuous Integration.  
 ![image](https://github.com/user-attachments/assets/87b97d07-26d4-4edb-bfe6-9f05fa6cfe7b)
 
-# 6. Attaching a webhook.  
+# 6. Attaching a Webhook.  
 From the repository settings in Github, attached the webhook with Jenkins. So that on every push or pull we get info on Jenkins logs.  
 ![image](https://github.com/user-attachments/assets/080ca450-87d7-4a0a-bab4-ef86e1434333)
 
