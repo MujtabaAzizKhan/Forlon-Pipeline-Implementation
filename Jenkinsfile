@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'f6009f42-fc72-4c16-b3bc-bd7551613a70'
         DOCKER_REGISTRY = 'Docker Hub'
+        TAG = "${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -19,29 +20,24 @@ pipeline {
                 sh 'docker-compose build'
             }
         }
+
+        stage ('Docker tag'){
+            steps{
+                sh 'docker tag mujtabaazizkhan/forlorn-pipeline-implementation:latest mujtabaazizkhan/forlorn-pipeline-implementation:v${TAG}'
+            }
+        }
         
-        // stage('Docker push'){
-        //     steps{
-        //         withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
-        //             sh """
-        //                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        //                 docker push mujtabaazizkhan/forlorn-pipeline-implementation:latest
-        //                 docker logout
-        //             """
-        //         }
-        //     }
-        // }
         stage('Docker push') {
             steps {
                 script {
                     docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
-                        sh 'docker push mujtabaazizkhan/forlorn-pipeline-implementation:latest'
+                        sh 'docker push mujtabaazizkhan/forlorn-pipeline-implementation:v${TAG}'
                     }
                 }
             }
         }
     }
-    
+
     post {
         always {
             sh 'docker logout'

@@ -1,5 +1,6 @@
 services:
   web:
+    image: mujtabaazizkhan/forlorn-pipeline-implementation:latest
     build:
       context: .
       dockerfile: Dockerfile
