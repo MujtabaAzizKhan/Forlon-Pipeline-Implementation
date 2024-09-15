@@ -15,20 +15,36 @@ pipeline {
         }
         
         stage('Docker-compose build'){
-            agent any
             steps{
                 sh 'docker-compose build'
             }
         }
         
-        stage('Docker push'){
-            agent any
-            steps{
-                withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
-                    sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}"
-                    sh 'docker push mujtabaazizkhan/forlorn-pipeline-implementation:latest'
+        // stage('Docker push'){
+        //     steps{
+        //         withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]){
+        //             sh """
+        //                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+        //                 docker push mujtabaazizkhan/forlorn-pipeline-implementation:latest
+        //                 docker logout
+        //             """
+        //         }
+        //     }
+        // }
+        stage('Docker push') {
+            steps {
+                script {
+                    docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
+                        sh 'docker push mujtabaazizkhan/forlorn-pipeline-implementation:latest'
+                    }
                 }
             }
+        }
+    }
+    
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
