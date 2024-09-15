@@ -3,8 +3,12 @@ In this repo I made a pipeline on Jenkins for Forlorn game so everytime a new co
 
 # Steps
 
-# 1. Setting up Jenkins, Docker and Kubernetes.  
-The first step was to set up the mentioned tools.  
+# 1. Pre-requisites.  
+For the pre-requisites, need to setup the following tools:
+- Docker
+- Jenkins
+- Kubernetes
+- Git
 
 # 2. Pushed the code   
 After that pushed the code to Github.  
@@ -19,7 +23,6 @@ The next step was to write Dockerfile and docker-compose file to create docker i
 Pushed the image to Docker hub after building it by using the command docker-compose up --build  
 ![image](https://github.com/user-attachments/assets/a11c9f31-35a0-4bf4-a703-535edb49d87d)
 
-
 # 5. Creating a pipeline on Jenkins.  
 Made a pipeline on Jenkins for Continuous Integration.  
 ![image](https://github.com/user-attachments/assets/87b97d07-26d4-4edb-bfe6-9f05fa6cfe7b)
@@ -28,7 +31,7 @@ Made a pipeline on Jenkins for Continuous Integration.
 From the repository settings in Github, attached the webhook with Jenkins. So that on every push or pull we get info on Jenkins logs.  
 ![image](https://github.com/user-attachments/assets/080ca450-87d7-4a0a-bab4-ef86e1434333)
 
-I also used serveo.net to expose local server to the internet. Because I cant connect the webhook with Jenkins on a localhost.  
+I also used serveo.net to expose local server to the internet. Because I can't connect the webhook with Jenkins on a localhost.  
 ![image](https://github.com/user-attachments/assets/c99577f8-c4e2-4e08-8713-caab4ca221db)
 
 # 7. Writing the pipeline code.  
